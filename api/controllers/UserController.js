@@ -1,20 +1,24 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const nodemailer = require('nodemailer');
 
 module.exports = {
   
     // User Signup
     signUp : async function(req ,res){
 
+        console.log('Respoce From Signup side' + req.body);
+
        await User.find({ email : req.body.email}).then((user) => {
         
             if(user.length >= 1){
+                
                 res.status(409).json({
                     message : "Already Have a Account Using This Email , Try Another one"
                 })
             } else {
                 bcrypt.hash(req.body.password , 10 , async (err , hash) => {
-                    console.log('This is Hash'+ hash);
+                   
                     if(err){
                         return res.status(500).json({
                             error : err,
@@ -34,12 +38,34 @@ module.exports = {
                                 }
                             )
 
-                            // res.status(201).json({
-                            //     user: user,
-                            //     message: " User Created Successfully",
-                            // })
+                            const transporter = nodemailer.createTransport({
+                                service: 'gmail',
+                                auth: {
+                                  user: 'parimaltank132@gmail.com',
+                                  pass: ''
+                                }
+                              });
+                              
+                              const mailOptions = {
+                                from: 'parimaltank132@gmail.com',
+                                to:  user.email,
+                                subject: 'Welcome To Expense Manager',
+                                text: `Hi! There, You have recently visited our website and entered your email.Please follow the given link to verify your email
+                                http://localhost:1337/user/verification/${token} 
+                                
+                                Thanks`
+                              };
+                              
+                              transporter.sendMail(mailOptions, function(error, info){
+                                if (error) {
+                                  console.log(error);
+                                } else {
+                                  console.log('Email sent: ' + info.response);
+                                }
+                              });
                           
-                        res.cookie("token" , token , { httpOnly : true}).send();
+                        res.cookie("token" , token , { httpOnly : true}).view('layouts/verification', { error: null, token: token});
+                        
                         })
                         .catch((err) => {
                             console.log(err);
@@ -65,6 +91,9 @@ module.exports = {
     // User Login
     
     login : async function(req , res) {
+
+        console.log(req.body);
+
         await User.findOne({email : req.body.email})
         .then(user => {
             if(user.length < 1){
@@ -74,8 +103,7 @@ module.exports = {
             } else{
 
                 // chech entered userName exist into a database or not.
-                if(req.body.userName == user.userName)
-                {
+
                  bcrypt.compare(req.body.password , user.password , (err , result) =>{
 
                     if(err){
@@ -86,7 +114,6 @@ module.exports = {
  
                     if(result){
                         const token = jwt.sign({
-                            userName: user.userName,
                             email: user.email,
                             password:user._id
                         },
@@ -103,11 +130,7 @@ module.exports = {
                         })
                     }
                 })
-            }else{
-                res.status(400).json({
-                    message : 'Auth Failed'
-                })
-            }
+         
           }
         })
         .catch(err => {
@@ -115,7 +138,10 @@ module.exports = {
                 message : 'Auth Failed'
             })
         })
+
     },
+
+   
 
     // For Logout 
 
@@ -128,6 +154,11 @@ module.exports = {
                 error : err
             })
         }
+    },
+
+    verification : async function(req , res){
+        console.log("Verification Called");
+        res.redirect('/homepage');
     }
 };
 
