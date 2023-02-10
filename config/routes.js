@@ -2,17 +2,18 @@ const UserController = require('../api/controllers/UserController');
 
 module.exports.routes = {
 
-
-  '/': { view: 'layouts/login' },
-  '/homepage' : { view : 'pages/homepage'},
+  '/': { view: 'pages/login'},
+  '/dashboard' : { view : 'pages/dashboard'},
   
-  '/signup': {view: 'layouts/signup'},
+  '/signup': {view: 'pages/signup'},
   '/user/signup' : UserController.signUp,
   '/user/login' :  UserController.login,
-  '/logout' : UserController.logout,
+  '/user/logout' : UserController.logout,
 
 
-  '/conformation' : { view : 'layouts/verification'},
-  '/user/verification/:token' : UserController.verification
+  '/conformation' : { view : 'pages/verification'},
+  '/user/verification' : UserController.verification,
 
+
+  '/dashboard' : { view : 'pages/dashboard'}
 };

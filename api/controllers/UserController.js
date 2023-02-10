@@ -2,12 +2,15 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 
+let otp = Math.random();
+otp = otp * 1000000;
+otp = parseInt(otp);
+console.log(otp);
+
 module.exports = {
   
     // User Signup
     signUp : async function(req ,res){
-
-        console.log('Respoce From Signup side' + req.body);
 
        await User.find({ email : req.body.email}).then((user) => {
         
@@ -42,7 +45,7 @@ module.exports = {
                                 service: 'gmail',
                                 auth: {
                                   user: 'parimaltank132@gmail.com',
-                                  pass: ''
+                                  pass: 'qorlqlshjnfdleoy'
                                 }
                               });
                               
@@ -50,10 +53,7 @@ module.exports = {
                                 from: 'parimaltank132@gmail.com',
                                 to:  user.email,
                                 subject: 'Welcome To Expense Manager',
-                                text: `Hi! There, You have recently visited our website and entered your email.Please follow the given link to verify your email
-                                http://localhost:1337/user/verification/${token} 
-                                
-                                Thanks`
+                                html: "<h3>OTP for account verification is </h3>"  + "<h1 style='font-weight:bold;'>" + otp +"</h1>" // html body"
                               };
                               
                               transporter.sendMail(mailOptions, function(error, info){
@@ -63,8 +63,10 @@ module.exports = {
                                   console.log('Email sent: ' + info.response);
                                 }
                               });
+
                           
-                        res.cookie("token" , token , { httpOnly : true}).view('layouts/verification', { error: null, token: token});
+                        // res.cookie("token" , token , { httpOnly : true}).view('layouts/verification', { error: null, token: token});
+                        res.cookie("token" , token , { httpOnly : true}).view('layouts/verification' , { msg : -1});
                         
                         })
                         .catch((err) => {
@@ -123,7 +125,7 @@ module.exports = {
                         }
                      );
                      console.log("Login Sucessfully");
-                     res.cookie("token" , token , {httpOnly : true }).send();
+                     res.cookie("token" , token , {httpOnly : true }).redirect('/dashboard');
                     } else{
                         res.status(400).json({
                             message : 'Auth Failed'
@@ -147,8 +149,7 @@ module.exports = {
 
     logout : async function(req , res){
         try{
-            console.log("SuccessFully Logout");
-            res.clearCookie('token');
+            res.clearCookie('token').redirect('/');
         }catch(err){
             res.status(500).json({
                 error : err
@@ -157,8 +158,12 @@ module.exports = {
     },
 
     verification : async function(req , res){
-        console.log("Verification Called");
-        res.redirect('/homepage');
+        if(req.body.otp==otp){
+            res.view('layouts/verification',{msg : 1});
+        }
+        else{
+            res.view('layouts/verification',{msg : 0});
+        }
     }
 };
 

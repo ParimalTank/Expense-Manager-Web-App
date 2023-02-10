@@ -36,6 +36,18 @@ module.exports.views = {
   *                                                                          *
   ***************************************************************************/
 
-  layout: 'layouts/layout'
+  // '/': { 
+  //   view: 'login',
+  //   locals: {
+  //       layout: false
+  //   }
+  // },
+
+  // layout: 'layouts/layout'
+
+
+  layout: false
+  
+  
 
 };
