@@ -5,12 +5,11 @@ const nodemailer = require('nodemailer');
 let otp = Math.random();
 otp = otp * 1000000;
 otp = parseInt(otp);
-console.log(otp);
 
 module.exports = {
   
     // User Signup
-    signUp : async function(req ,res){
+    signUp : async (req ,res) => {
 
        await User.find({ email : req.body.email}).then((user) => {
         
@@ -64,10 +63,20 @@ module.exports = {
                                 }
                               });
 
-                          
-                        // res.cookie("token" , token , { httpOnly : true}).view('layouts/verification', { error: null, token: token});
-                        res.cookie("token" , token , { httpOnly : true}).view('layouts/verification' , { msg : -1});
-                        
+                              Account.create({userAccount : 'default' , userName : req.body.userName , users : [] }).fetch().then(result => {
+                                // res.status(200).json({
+                                //    result : result,
+                                //    message : 'Default Account Created.....'
+                                // })
+                                res.cookie("token" , token , { httpOnly : true}).view('pages/verification' , { msg : -1});
+                                console.log('Default Account Created',result);
+                             }).catch(err => {
+                                 res.status(404).json({
+                                   err : err,
+                                   message : 'Default Account Creation is Failed'
+                                 })
+                             })
+
                         })
                         .catch((err) => {
                             console.log(err);
@@ -77,6 +86,7 @@ module.exports = {
                                 message: 'Auth Fail'
                             })
                         })
+
                     }
                 })
             }
@@ -92,7 +102,7 @@ module.exports = {
 
     // User Login
     
-    login : async function(req , res) {
+    login : async (req , res) => {
 
         console.log(req.body);
 
@@ -147,7 +157,7 @@ module.exports = {
 
     // For Logout 
 
-    logout : async function(req , res){
+    logout : async (req , res) => {
         try{
             res.clearCookie('token').redirect('/');
         }catch(err){
@@ -157,12 +167,12 @@ module.exports = {
         }
     },
 
-    verification : async function(req , res){
+    verification : async (req , res) => {
         if(req.body.otp==otp){
-            res.view('layouts/verification',{msg : 1});
+            res.view('pages/verification',{msg : 1});
         }
         else{
-            res.view('layouts/verification',{msg : 0});
+            res.view('pages/verification',{msg : 0});
         }
     }
 };

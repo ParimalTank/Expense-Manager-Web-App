@@ -2,12 +2,12 @@
 module.exports = {
 
   attributes: {
-
-    adminId : {
+    
+    userName : {
       type : 'string',
       required : true
     },
-    userAccount : {
+    userAccountType : {
       type : 'string',
       required : true
     },
