@@ -2,10 +2,22 @@
 module.exports = {
 
   attributes: {
-    
-    userName : {
-      type : 'string',
+
+    // createrId:{
+    //   // type : 'string',
+    //   // required : true
+    //   model : 'user'
+    // },
+    accountName:{
+      type: 'string',
       required : true
+    },
+    userName : {
+      model : 'user'
+      // collection : 'account',
+      // via: 'userName'
+      // type : 'string',
+      // required: true 
     },
     userAccountType : {
       type : 'string',

@@ -4,8 +4,10 @@ module.exports =  {
   attributes: {
 
    userName : {
-     type : 'string',
-     required: true
+    //  type : 'string',
+    //  required: true  
+    collection : 'account',
+    via: 'userName'
    },
    email : {
     type : 'string',
@@ -16,4 +18,3 @@ module.exports =  {
    }
   },
 };
-

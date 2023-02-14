@@ -5,7 +5,7 @@ module.exports = {
     addUser : async (req , res) => {
 
         const email = 'parimalt8960@zignuts.com';
-        const id = '63e9e223b2a88f0bdb096406';
+        const id = '63eb5c61de202114a9ec542a';
 
         // const email = req.body.email;
         // const id =  req.params.id;
@@ -25,6 +25,28 @@ module.exports = {
             users : user
         })
         
+    },
+
+    createAccount : async (req , res) => {
+
+       await Account.create({accountName : 'GoaTrip' ,userAccountType : 'Expense' , users : []}).fetch().then(result => {
+            
+            console.log('New Account Created',result);
+            res.status(200).json({
+                message : 'New Account Created',
+                result : result
+            })
+
+        
+         }).catch(err => {
+             res.status(404).json({
+               err : err,
+               message : 'Account Creation is Failed'
+             })
+         })
+     
+         const users = User.find().populate('userName');
+         console.log("This is UserName" + JSON.stringify(users));
     }
 
 };

@@ -63,11 +63,8 @@ module.exports = {
                                 }
                               });
 
-                              Account.create({userAccount : 'default' , userName : req.body.userName , users : [] }).fetch().then(result => {
-                                // res.status(200).json({
-                                //    result : result,
-                                //    message : 'Default Account Created.....'
-                                // })
+                              Account.create({accountName : 'Goa Trip' ,userAccountType : 'default' , userName : req.body.userName , users : [] }).fetch().then(result => {
+
                                 res.cookie("token" , token , { httpOnly : true}).view('pages/verification' , { msg : -1});
                                 console.log('Default Account Created',result);
                              }).catch(err => {

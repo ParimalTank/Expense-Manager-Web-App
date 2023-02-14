@@ -36,10 +36,15 @@ module.exports.routes = {
   '/transaction/getTransaction/:id' : TransactionController.getTransactionById,
 
 
+  // Create Account
+  '/account/createaccount' : AccountController.createAccount,
+
+
+
+
   
   '/profile' : { view : 'pages/profile'},
   '/basic' : { view : 'pages/basic-table'},
-  '/mapgoogle' : { view : 'pages/map-google'},
   '/blank' : { view : 'pages/blank'},
   '/fontawesome' : { view : 'pages/fontawesome'}
 
