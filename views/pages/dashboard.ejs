@@ -14,7 +14,7 @@
     <title>Welcome To Expense Manager</title>
     <link rel="canonical" href="https://www.wrappixel.com/templates/ample-admin-lite/" />
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/plugins/images/favicon.png">
     <!-- Custom CSS -->
     <link href="/plugins/bower_components/chartist/dist/chartist.min.css" rel="stylesheet">
 
@@ -63,6 +63,7 @@
                             <ol class="breadcrumb ms-auto">
                                 <li><a href="#" class="fw-normal">Dashboard</a></li>
                             </ol>
+                            <a href="#" class="btn btn-primary  d-none d-md-block pull-right ms-3 hidden-xs hidden-sm waves-effect waves-light text-white">Create New Account</a>
                         </div>
                     </div>
                 </div>
@@ -78,76 +79,8 @@
                 <!-- ============================================================== -->
                 <!-- Three charts -->
                 <!-- ============================================================== -->
-                <div class="row justify-content-center">
-                    <div class="col-lg-4 col-md-12">
-                        <div class="white-box analytics-info">
-                            <h3 class="box-title">Total Visit</h3>
-                            <ul class="list-inline two-part d-flex align-items-center mb-0">
-                                <li>
-                                    <div id="sparklinedash"><canvas width="67" height="30"
-                                            style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
-                                    </div>
-                                </li>
-                                <li class="ms-auto"><span class="counter text-success">659</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-12">
-                        <div class="white-box analytics-info">
-                            <h3 class="box-title">Total Page Views</h3>
-                            <ul class="list-inline two-part d-flex align-items-center mb-0">
-                                <li>
-                                    <div id="sparklinedash2"><canvas width="67" height="30"
-                                            style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
-                                    </div>
-                                </li>
-                                <li class="ms-auto"><span class="counter text-purple">869</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-12">
-                        <div class="white-box analytics-info">
-                            <h3 class="box-title">Unique Visitor</h3>
-                            <ul class="list-inline two-part d-flex align-items-center mb-0">
-                                <li>
-                                    <div id="sparklinedash3"><canvas width="67" height="30"
-                                            style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
-                                    </div>
-                                </li>
-                                <li class="ms-auto"><span class="counter text-info">911</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- ============================================================== -->
-                <!-- PRODUCTS YEARLY SALES -->
-                <!-- ============================================================== -->
-                <div class="row">
-                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-                        <div class="white-box">
-                            <h3 class="box-title">Products Yearly Sales</h3>
-                            <div class="d-md-flex">
-                                <ul class="list-inline d-flex ms-auto">
-                                    <li class="ps-3">
-                                        <h5><i class="fa fa-circle me-1 text-info"></i>Mac</h5>
-                                    </li>
-                                    <li class="ps-3">
-                                        <h5><i class="fa fa-circle me-1 text-inverse"></i>Windows</h5>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div id="ct-visits" style="height: 405px;">
-                                <div class="chartist-tooltip" style="top: -17px; left: -12px;"><span
-                                        class="chartist-tooltip-value">6</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- ============================================================== -->
-                <!-- RECENT SALES -->
-                <!-- ============================================================== -->
+                <%- include('../pages/accounts.ejs') %>
+                
                 <div class="row">
                     <div class="col-md-12 col-lg-12 col-sm-12">
                         <div class="white-box">
@@ -243,7 +176,7 @@
                             <div class="comment-widgets">
                                 <!-- Comment Row -->
                                 <div class="d-flex flex-row comment-row p-3 mt-0">
-                                    <div class="p-2"><img src="plugins/images/users/varun.jpg" alt="user" width="50" class="rounded-circle"></div>
+                                    <div class="p-2"><img src="/plugins/images/users/varun.jpg" alt="user" width="50" class="rounded-circle"></div>
                                     <div class="comment-text ps-2 ps-md-3 w-100">
                                         <h5 class="font-medium">James Anderson</h5>
                                         <span class="mb-3 d-block">Lorem Ipsum is simply dummy text of the printing and type setting industry.It has survived not only five centuries. </span>
@@ -256,7 +189,7 @@
                                 </div>
                                 <!-- Comment Row -->
                                 <div class="d-flex flex-row comment-row p-3">
-                                    <div class="p-2"><img src="plugins/images/users/genu.jpg" alt="user" width="50" class="rounded-circle"></div>
+                                    <div class="p-2"><img src="/plugins/images/users/genu.jpg" alt="user" width="50" class="rounded-circle"></div>
                                     <div class="comment-text ps-2 ps-md-3 active w-100">
                                         <h5 class="font-medium">Michael Jorden</h5>
                                         <span class="mb-3 d-block">Lorem Ipsum is simply dummy text of the printing and type setting industry.It has survived not only five centuries. </span>
@@ -270,7 +203,7 @@
                                 </div>
                                 <!-- Comment Row -->
                                 <div class="d-flex flex-row comment-row p-3">
-                                    <div class="p-2"><img src="plugins/images/users/ritesh.jpg" alt="user" width="50" class="rounded-circle"></div>
+                                    <div class="p-2"><img src="/plugins/images/users/ritesh.jpg" alt="user" width="50" class="rounded-circle"></div>
                                     <div class="comment-text ps-2 ps-md-3 w-100">
                                         <h5 class="font-medium">Johnathan Doeting</h5>
                                         <span class="mb-3 d-block">Lorem Ipsum is simply dummy text of the printing and type setting industry.It has survived not only five centuries. </span>
@@ -319,7 +252,7 @@
                                             </button>
                                         </div>
                                         <a href="javascript:void(0)" class="d-flex align-items-center"><img
-                                                src="plugins/images/users/genu.jpg" alt="user-img" class="img-circle">
+                                                src="/plugins/images/users/genu.jpg" alt="user-img" class="img-circle">
                                             <div class="ms-2">
                                                 <span class="text-dark">Genelia
                                                     Deshmukh <small class="d-block text-warning">Away</small></span>
@@ -336,7 +269,7 @@
                                             </button>
                                         </div>
                                         <a href="javascript:void(0)" class="d-flex align-items-center"><img
-                                                src="plugins/images/users/ritesh.jpg" alt="user-img" class="img-circle">
+                                                src="/plugins/images/users/ritesh.jpg" alt="user-img" class="img-circle">
                                             <div class="ms-2">
                                                 <span class="text-dark">Ritesh
                                                     Deshmukh <small class="d-block text-danger">Busy</small></span>
@@ -370,7 +303,7 @@
                                             </button>
                                         </div>
                                         <a href="javascript:void(0)" class="d-flex align-items-center"><img
-                                                src="plugins/images/users/govinda.jpg" alt="user-img"
+                                                src="/plugins/images/users/govinda.jpg" alt="user-img"
                                                 class="img-circle">
                                             <div class="ms-2">
                                                 <span class="text-dark">Govinda
@@ -388,7 +321,7 @@
                                             </button>
                                         </div>
                                         <a href="javascript:void(0)" class="d-flex align-items-center"><img
-                                                src="plugins/images/users/hritik.jpg" alt="user-img" class="img-circle">
+                                                src="/plugins/images/users/hritik.jpg" alt="user-img" class="img-circle">
                                             <div class="ms-2">
                                                 <span class="text-dark">John
                                                     Abraham<small class="d-block text-success">online</small></span>

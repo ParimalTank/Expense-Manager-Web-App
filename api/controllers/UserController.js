@@ -32,7 +32,8 @@ module.exports = {
                             const token = jwt.sign(
                                 {
                                     email : user.email,
-                                    password : user.id
+                                    password : user.password,
+                                    userName : user.userName
                                 },
                                 process.env.JWT_KEY,
                                 {
@@ -63,16 +64,7 @@ module.exports = {
                                 }
                               });
 
-                              Account.create({accountName : 'Goa Trip' ,userAccountType : 'default' , userName : req.body.userName , users : [] }).fetch().then(result => {
-
-                                res.cookie("token" , token , { httpOnly : true}).view('pages/verification' , { msg : -1});
-                                console.log('Default Account Created',result);
-                             }).catch(err => {
-                                 res.status(404).json({
-                                   err : err,
-                                   message : 'Default Account Creation is Failed'
-                                 })
-                             })
+                             res.redirect(`/conformation?token=${token}&userid=${user.id}`)
 
                         })
                         .catch((err) => {
@@ -132,7 +124,7 @@ module.exports = {
                         }
                      );
                      console.log("Login Sucessfully");
-                     res.cookie("token" , token , {httpOnly : true }).redirect('/dashboard');
+                     res.cookie("token" , token , {httpOnly : true }).redirect('/account/getallAccount');
                     } else{
                         res.status(400).json({
                             message : 'Auth Failed'
@@ -166,10 +158,27 @@ module.exports = {
 
     verification : async (req , res) => {
         if(req.body.otp==otp){
-            res.view('pages/verification',{msg : 1});
+
+            console.log('Verification called');
+
+            // console.log();
+            const token = req.query.token;
+            const userId = req.query.userid;
+
+            // Default Acccount Creation
+            Account.create({ createrId :  userId, accountName : 'Defult Account' ,userAccountType : 'default' , users : []}).fetch().then(result => {
+
+                res.cookie("token" , token , { httpOnly : true}).redirect('/account/getallAccount');
+                console.log('Default Account Created',result);
+             }).catch(err => {
+                 res.status(404).json({
+                   err : err,
+                   message : 'Default Account Creation is Failed'
+                 })
+             })
         }
         else{
-            res.view('pages/verification',{msg : 0});
+            res.view('pages/verification');
         }
     }
 };

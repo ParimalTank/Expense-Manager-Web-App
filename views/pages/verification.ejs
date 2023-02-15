@@ -42,12 +42,11 @@
                         <div class="text-center">
                             <!-- <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
                             style="width: 185px;" alt="logo"> -->
-            
                         </div>
                       
                         <h4 class="mt-1 mb-5 pb-1">Verification Link send you to with your email address please verify</h4>
                         <div id="alert-message"></div>
-                        <form method="post" action="/user/verification">
+                        <form method="post" action="/user/verification?token=<%= req.query.token %>&userid=<%= req.query.userid %>">
                             <div class="text-center pt-1 mb-5 pb-1">
 
                                 <label  class="form-label">Enter OTP</label>
@@ -81,37 +80,10 @@
             </div>
         </section>
 
+
         <script>
-            let temp = '<%= msg %>';
-
-            function Register() {
-                        location.href = '/dashboard'
-                }
-
-            if(typeof temp !== undefined){
-                if('<%= msg %>' == 1){
-                $('#alert-message').html(`
-						    <div class="alert alert-success" role="alert">
-								You have been Sucessfully Register
-							</div>`
-				)
-
-                const myTimeout = setTimeout(Register, 1000);
-                
-               
-            }else if('<%= msg %>' == -1){
-
-            }
-            else{
-                $('#alert-message').html(`
-						    <div class="alert alert-danger" role="alert">
-								Invalid OTP
-							</div>`
-				)
-            }
-            }
-            
-           
+            console.log('This is Token' + `<%= req.query.token %>`);
+            console.log('This is UserId' + `<%= req.query.userid %>`);
         </script>
 </body>
 </html>

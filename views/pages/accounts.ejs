@@ -1,0 +1,30 @@
+<h3>accounts</h3>
+<br />
+<% if (typeof accounts == 'undefined'){%>
+<div></div>
+<% }else{ %>
+<div class="row justify-content-center">
+  <% for(let i=0 ; i < accounts.length ; i++) { %>
+  <div class="col-lg-4 col-md-12">
+    <div class="white-box analytics-info">
+      <h3 class="box-title">Name : <%= accounts[i].accountName %></h3>
+      <h3 class="box-title">Type : <%= accounts[i].userAccountType %></h3>
+      <ul class="list-inline two-part d-flex align-items-center mb-0">
+        <li class="mx-2">
+          <a href="/transaction" class="btn btn-primary"><%= accounts[i].createrId %> Open Account</a>
+        </li >
+
+        <li class="mx-2">
+            <a href="" class="btn text-white"  style="background-color: #4040f6 ;">Edit</a>
+        </li>
+
+        <li>
+            <a href="/transaction" class="btn text-white" style="background-color: rgb(233, 105, 105);">Delete</a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+  <% } %>
+</div>
+<% } %>

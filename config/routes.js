@@ -5,7 +5,8 @@ const UserController = require('../api/controllers/UserController');
 module.exports.routes = {
 
   '/': { view: 'pages/login'},
-  '/dashboard' : { view : 'pages/dashboard'},
+  // '/dashboard' : { view : 'pages/accounts'},
+  '/transaction' : { view : 'pages/transaction'},
   
   // User Login , Signup , Log out
   '/signup': {view: 'pages/signup'},
@@ -23,6 +24,7 @@ module.exports.routes = {
 
 
 
+  
   // ADD Transaction
   '/transaction/addtransaction':  TransactionController.addTransaction,
 
@@ -36,8 +38,23 @@ module.exports.routes = {
   '/transaction/getTransaction/:id' : TransactionController.getTransactionById,
 
 
+
+
+
+
   // Create Account
   '/account/createaccount' : AccountController.createAccount,
+  // Delete Account
+  '/account/deleteAccount/:id' : AccountController.deleteAccount,
+
+  // Update Account
+  '/account/updateAccount' : AccountController.updateAccount,
+
+  // Get all Account BY ID
+  '/account/getallAccount' : AccountController.getallAccount,
+
+  // Get account by Id
+  '/account/getallAccountByID/:id' : AccountController.getallAccountByID,
 
 
 
@@ -47,5 +64,6 @@ module.exports.routes = {
   '/basic' : { view : 'pages/basic-table'},
   '/blank' : { view : 'pages/blank'},
   '/fontawesome' : { view : 'pages/fontawesome'}
+
 
 };
