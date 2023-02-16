@@ -29,10 +29,11 @@ module.exports = {
                        
                      await User.create({userName: req.body.userName , email : req.body.email , password: hash}).fetch().then((user) => {
 
+
                             const token = jwt.sign(
                                 {
                                     email : user.email,
-                                    password : user.password,
+                                    password : user.id,
                                     userName : user.userName
                                 },
                                 process.env.JWT_KEY,

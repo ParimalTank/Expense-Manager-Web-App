@@ -19,4 +19,16 @@ module.exports.policies = {
 
   // '*': true,
 
+  // '*': 'isAuth',
+  // 'api/controllers/UserController': true,
+
+    // user: {
+    //     '*': true
+    // },
+    // account: {
+    //     '*': 'isAuth',
+    // },
+    // transaction : {
+    //     '*': 'isAuth',
+    // }
 };

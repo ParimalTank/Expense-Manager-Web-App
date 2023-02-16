@@ -43,7 +43,7 @@ module.exports.routes = {
 
 
   // Create Account
-  '/account/createaccount' : AccountController.createAccount,
+  '/account/createaccount/:createrId' : AccountController.createAccount,
   // Delete Account
   '/account/deleteAccount/:id' : AccountController.deleteAccount,
 

@@ -3,7 +3,9 @@ module.exports = {
   
   addTransaction : (req , res) =>{
 
-    const account_Id = req.body.account_Id;
+    // const account_Id = req.query.accountId;
+    // console.log(account_Id);
+
     const transactionuserName = req.body.transactionuserName;
     const transactionType = req.body.transactionType;
     const transactionAmount = req.body.transactionAmount;
@@ -28,6 +30,7 @@ module.exports = {
   getallTransaction : (req , res) => {
 
     Transaction.find({}).then((result) => {
+
         res.status(200).json({
             result : result,
             message: "All Transaction Details"
@@ -44,6 +47,10 @@ module.exports = {
   getTransactionById : (req , res) => {
 
     Transaction.find(req.params.id).then((result) => {
+
+
+        res.view('transaction' , { transaction : result});
+
         res.status(200).json({
             result : result,
         })

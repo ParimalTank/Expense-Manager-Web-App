@@ -56,7 +56,7 @@
             <div class="page-breadcrumb bg-white">
                 <div class="row align-items-center">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Transactions</h4>
+                        <h4 class="page-title">Accounts</h4>
                     </div>
                     <br>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
@@ -71,7 +71,7 @@
                                 Add New User
                             </button>
                             
-                            <!-- Modal -->
+                            <!-- Add New User Modal -->
                             <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
@@ -81,29 +81,53 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                     </div>
+
                                     <div class="modal-body">
-                                        <form class="form-inline" action="" method="post">
+
+                                        <form class="form-inline" action="/user/adduser?accountId=<%= req.query.accountId %>" method="post">
                                             <div class="form-group mb-2">
                                               <label for="staticEmail2" class="sr-only">Email</label>
-                                              <input type="text" class="form-control" id="staticEmail2" placeholder="enter user email id" required>
+                                              <input type="text" name="email" class="form-control" id="staticEmail2" placeholder="enter user email id" required>
                                             </div>
-                                            <!-- <div class="form-group mx-sm-3 mb-2">
-                                              <label for="inputPassword2" class="sr-only">Password</label>
-                                              <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
-                                            </div> -->
-
                                           <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                             <button type="submit" class="btn btn-primary">Save</button>
                                           </div>
 
                                         </form>
+
                                     </div>
                                     
                                 </div>
                                 </div>
                             </div>
 
+
+                                                <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary mx-3" data-toggle="modal" data-target="#exampleModal">
+                                Launch demo modal
+                            </button>
+                            
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">List of Users</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    </div>
+                                    <div class="modal-body">
+                                    ...
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
 
                         </div>
                     </div>
@@ -125,7 +149,7 @@
                             
                             <!-- Button trigger modal -->
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenters">
-                                Launch demo modal
+                                Add Transaction
                             </button>
                             
                             <!-- Modal -->
@@ -167,104 +191,104 @@
                                 </div>
                                 </div>
                             </div>
-
-
-
-
-
-
-
-
-                            
                         </div>
-                    </div>
-                </div>
-            </div>
 
 
 
-            <div class="row">
-                <div class="col-md-12 col-lg-12 col-sm-12">
-                    <div class="white-box">
-                        <div class="d-md-flex mb-3">
-                            <h3 class="box-title mb-0">Recent sales</h3>
-                            <div class="col-md-3 col-sm-4 col-xs-6 ms-auto">
-                                <select class="form-select shadow-none row border-top">
-                                    <option>March 2021</option>
-                                    <option>April 2021</option>
-                                    <option>May 2021</option>
-                                    <option>June 2021</option>
-                                    <option>July 2021</option>
-                                </select>
+                        <div class="row">
+                            <div class="col-md-12 col-lg-12 col-sm-12">
+                                <div class="white-box">
+                                    <div class="d-md-flex mb-3">
+                                        <h3 class="box-title mb-0">Recent Transaction</h3>
+                                        <div class="col-md-3 col-sm-4 col-xs-6 ms-auto">
+                                            <select class="form-select shadow-none row border-top">
+                                                <option>March 2021</option>
+                                                <option>April 2021</option>
+                                                <option>May 2021</option>
+                                                <option>June 2021</option>
+                                                <option>July 2021</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table class="table no-wrap">
+                                            <thead>
+                                                <tr>
+                                                    <th class="border-top-0">#</th>
+                                                    <th class="border-top-0">Transaction By</th>
+                                                    <th class="border-top-0">Transaction Type</th>
+                                                    <th class="border-top-0">Transaction Amount</th>
+                                                    <th class="border-top-0">Transaction Description</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td class="txt-oflo">Elite admin</td>
+                                                    <td>SALE</td>
+                                                    <td class="txt-oflo">April 18, 2021</td>
+                                                    <td><span class="text-success">$24</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2</td>
+                                                    <td class="txt-oflo">Real Homes WP Theme</td>
+                                                    <td>EXTENDED</td>
+                                                    <td class="txt-oflo">April 19, 2021</td>
+                                                    <td><span class="text-info">$1250</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3</td>
+                                                    <td class="txt-oflo">Ample Admin</td>
+                                                    <td>EXTENDED</td>
+                                                    <td class="txt-oflo">April 19, 2021</td>
+                                                    <td><span class="text-info">$1250</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>4</td>
+                                                    <td class="txt-oflo">Medical Pro WP Theme</td>
+                                                    <td>TAX</td>
+                                                    <td class="txt-oflo">April 20, 2021</td>
+                                                    <td><span class="text-danger">-$24</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>5</td>
+                                                    <td class="txt-oflo">Hosting press html</td>
+                                                    <td>SALE</td>
+                                                    <td class="txt-oflo">April 21, 2021</td>
+                                                    <td><span class="text-success">$24</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>6</td>
+                                                    <td class="txt-oflo">Digital Agency PSD</td>
+                                                    <td>SALE</td>
+                                                    <td class="txt-oflo">April 23, 2021</td>
+                                                    <td><span class="text-danger">-$14</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>7</td>
+                                                    <td class="txt-oflo">Helping Hands WP Theme</td>
+                                                    <td>MEMBER</td>
+                                                    <td class="txt-oflo">April 22, 2021</td>
+                                                    <td><span class="text-success">$64</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="table-responsive">
-                            <table class="table no-wrap">
-                                <thead>
-                                    <tr>
-                                        <th class="border-top-0">#</th>
-                                        <th class="border-top-0">Name</th>
-                                        <th class="border-top-0">Status</th>
-                                        <th class="border-top-0">Date</th>
-                                        <th class="border-top-0">Price</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td class="txt-oflo">Elite admin</td>
-                                        <td>SALE</td>
-                                        <td class="txt-oflo">April 18, 2021</td>
-                                        <td><span class="text-success">$24</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td class="txt-oflo">Real Homes WP Theme</td>
-                                        <td>EXTENDED</td>
-                                        <td class="txt-oflo">April 19, 2021</td>
-                                        <td><span class="text-info">$1250</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td class="txt-oflo">Ample Admin</td>
-                                        <td>EXTENDED</td>
-                                        <td class="txt-oflo">April 19, 2021</td>
-                                        <td><span class="text-info">$1250</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td class="txt-oflo">Medical Pro WP Theme</td>
-                                        <td>TAX</td>
-                                        <td class="txt-oflo">April 20, 2021</td>
-                                        <td><span class="text-danger">-$24</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>5</td>
-                                        <td class="txt-oflo">Hosting press html</td>
-                                        <td>SALE</td>
-                                        <td class="txt-oflo">April 21, 2021</td>
-                                        <td><span class="text-success">$24</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>6</td>
-                                        <td class="txt-oflo">Digital Agency PSD</td>
-                                        <td>SALE</td>
-                                        <td class="txt-oflo">April 23, 2021</td>
-                                        <td><span class="text-danger">-$14</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>7</td>
-                                        <td class="txt-oflo">Helping Hands WP Theme</td>
-                                        <td>MEMBER</td>
-                                        <td class="txt-oflo">April 22, 2021</td>
-                                        <td><span class="text-success">$64</span></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+
+
+
+
+
                     </div>
                 </div>
             </div>
+
+
+
+           
             
          
              <!-- footer -->
@@ -280,6 +304,9 @@
     <!-- ============================================================== -->
     <!-- ============================================================== -->
 
+    <script>
+        console.log('This is Account Id ' + '<%= req.query.accountId %>');
+    </script>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

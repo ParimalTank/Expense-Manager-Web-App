@@ -1,40 +1,54 @@
+const jwt = require('jsonwebtoken');
 
 module.exports = {
   
     addUser : async (req , res) => {
 
-        const email = 'parimalt8960@zignuts.com';
-        const id = '63eb5c61de202114a9ec542a';
+        // const email = 'parimalt8960@zignuts.com';
+        // const id = '63eb5c61de202114a9ec542a'; // account id
 
-        // const email = req.body.email;
-        // const id =  req.params.id;
+        // const token = req.cookies.token;
+
+        // console.log("This is Token:" +  token);
+
+        const account_id = req.query.accountId;
+
+        const email = req.body.email;
 
         const user = [];
 
-        const findUser = await Account.findOne({_id : id})
-        console.log(findUser);
+        const findUser = await Account.findOne({_id : account_id})
+        // console.log(findUser);
 
         for(let i = 0; i<findUser.users.length ; i++){
             user.push(findUser.users[i])
         }
         user.push(email);
-        console.log(user);
+        // console.log(user);
 
-        await Account.updateOne({ _id : id}).set({
+        await Account.updateOne({ _id : account_id}).set({
             users : user
+        })
+
+        res.status(200).json({
+            message : "SuccessFully Added"
         })
         
     },
 
     createAccount : async (req , res) => {
 
-       await Account.create({createrId : '63ec82e89aebdb0bf4c60ab3'   , accountName : 'GoaTrip' ,userAccountType : 'Expense' , users : []} ).fetch().then(result => {
+
+        const createrId = req.params.createrId;
+
+                                          //creater id // user id
+        // const user = await User.findOne({ _id : 'createrId'}).populate('userAccounts');
+        // console.log(user.userName);
+
+       await Account.create({createrId : createrId   , accountName : req.body.accountName   ,userAccountType : req.body.userAccountType , users : []} ).fetch().then(result => {
             
             console.log('New Account Created',result);
-            res.status(200).json({
-                message : 'New Account Created',
-                result : result
-            })
+            res.redirect('/account/getallAccount');
            
          }).catch(err => {
              res.status(404).json({
@@ -43,8 +57,8 @@ module.exports = {
              })
          })
      
-         const users = await User.findOne({ _id : '63ec889717643a0d4190a848'}).populate('userAccounts');
-         console.log(users);
+        //  const users = await User.findOne({ _id : '63ec889717643a0d4190a848'}).populate('userAccounts');
+        //  console.log(users);
     },
 
     deleteAccount : async ( req , res) => {
@@ -52,9 +66,10 @@ module.exports = {
         const id = req.params.id;
 
         Account.destroy(id).then(result => {
-            res.status(200).json({
-                message : "Account Deleted"
-            })
+            // res.status(200).json({
+            //     message : "Account Deleted"
+            // })
+            res.redirect('/account/getallAccount');
         }).catch(err => {
             res.status(404).json({
                 message: "Account Deletion is Failed"
@@ -78,11 +93,6 @@ module.exports = {
 
     getallAccount : async (req , res) => {
        await Account.find({}).then(result => {
-            // res.status(200).json({
-            //     result : result,
-            //     message : "All Accounts"
-            // })
-            console.log(result);
 
             res.view('pages/dashboard' , { accounts : result });
 
@@ -94,11 +104,11 @@ module.exports = {
     },
 
     getallAccountByID : async ( req , res) => {
-        Account.find({_id : req.params.id}).exec( (error , account) => {
+        Account.find({id : req.params.id}).exec( (error , account) => {
             if(error){
                 res.send(500 , { error : 'Database Error'})
             }
-            res.view('pages/accounts' , )
+            res.view('pages/accounts' , { accounts : result } )
         })
 
     }
