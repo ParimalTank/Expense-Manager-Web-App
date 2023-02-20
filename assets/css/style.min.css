@@ -11560,6 +11560,7 @@ html[dir="ltr"] body .p-l-0 {
   padding: 20px 30px;
   font-weight: 300;
   background: #fff;
+  /* margin-top: 32%; */
 }
 .footer a {
   color: #337ab7;

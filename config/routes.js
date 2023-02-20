@@ -23,23 +23,27 @@ module.exports.routes = {
 
 
 
-
+// Transaction Section
   
   // ADD Transaction
-  '/transaction/addtransaction':  TransactionController.addTransaction,
+  '/transaction/addtransaction/:accountId':  TransactionController.addTransaction,
 
   // Get All Transaction Details
   '/transaction/getallTransaction' : TransactionController.getallTransaction,
 
   // Delete Transaction
-  '/transaction/deleteTransaction/:id' : TransactionController.deleteTransaction,
+  '/transaction/deleteTransaction/:transactionId/:accountId' : TransactionController.deleteTransaction,
 
   // Get Transaction Details By ID
   '/transaction/getTransaction/:id' : TransactionController.getTransactionById,
 
 
+  // Update the Transaction By Id
+  '/transaction/updateTransaction/:transactionId/:accountId' : TransactionController.updateTransaction,
 
 
+
+  // Account Section
 
 
   // Create Account
@@ -48,13 +52,13 @@ module.exports.routes = {
   '/account/deleteAccount/:id' : AccountController.deleteAccount,
 
   // Update Account
-  '/account/updateAccount' : AccountController.updateAccount,
+  '/account/updateAccount/:id' : AccountController.updateAccount,
 
-  // Get all Account BY ID
+  // Get all Account
   '/account/getallAccount' : AccountController.getallAccount,
 
   // Get account by Id
-  '/account/getallAccountByID/:id' : AccountController.getallAccountByID,
+  '/account/getAccountByID/:id' : AccountController.getAccountByID,
 
 
 

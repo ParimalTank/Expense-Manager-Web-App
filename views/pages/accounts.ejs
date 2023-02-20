@@ -27,6 +27,9 @@
                       </button>
                     </div>
 
+                    <% if (typeof accounts == 'undefined'){ %>
+                      <div></div>
+                      <% }else{ %>
                     <form action="/account/createaccount/<%= accounts[0].createrId %>" method="post">
                         <div class="modal-body">
 
@@ -35,23 +38,13 @@
                               <input type="text" class="form-control" id="exampleInputEmail1" name="accountName" aria-describedby="emailHelp" placeholder="Enter Account Name">
                             </div>
                            
-                            <div class="form-group">
-                              <label for="exampleInputEmail1">Account Type :</label><br/>
-                              <select class="custom-select" name="userAccountType" required>
-                                <option value="">Select Account Type</option>
-                                <option value="Expence">Expence</option>
-                                <option value="Income">Income</option>
-                                <option value="Transfer">Transfer</option>
-                              </select>
-                            </div>
-                           
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                           <button type="submit" class="btn btn-primary">Save</button>
                         </div>
                     </form>
-
+                    <% } %>
                   </div>
                 </div>
               </div>
@@ -72,18 +65,14 @@
   <div class="col-lg-4 col-md-12">
     <div class="white-box analytics-info">
       <h3 class="box-title">Name : <%= accounts[i].accountName %></h3>
-      <h3 class="box-title">Type : <%= accounts[i].userAccountType %></h3>
       <ul class="list-inline two-part d-flex align-items-center mb-0">
         <li class="mx-2">
-          <a href="/transaction?accountId=<%= accounts[i].id %>" class="btn btn-primary">Open Account</a>
+          <a href="/transaction/getallTransaction?accountId=<%= accounts[i].id %>" class="btn btn-primary">Open Account</a>
         </li>
 
         <li class="mx-2">
-
-                <!-- Button trigger modal -->
-                  <button type="button" style="background-color: #4040f6;" value="<%= accounts[i].id %>" class="editbtn btn btn-primary" data-toggle="modal" data-target="#exampleModals">
-                     Edit
-                  </button>
+          <!-- Button trigger modal -->
+            <button type="button" style="background-color: #4040f6;" class="editbtn btn btn-primary" data-toggle="modal" data-target="#<%= accounts[i].id %>"  data-id="<%= accounts[i].id %>">Edit</button>
         </li>
 
         <li>
@@ -99,49 +88,42 @@
 </div>
 <% } %>
 
+<% if (typeof accounts == 'undefined'){%>
+  <div></div>
+  <% }else{ %>
+  <div class="row ">
+    <% for(let i=0 ; i < accounts.length ; i++) { %>
 
+        <div class="modal fade" id="<%= accounts[i].id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="location.reload()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+               
+               <form action="/account/updateAccount/<%= accounts[i].id %>" method="post">
 
-                  <!--Edit Modal -->
-                  <div class="modal fade" id="exampleModals" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">Edit Accounts</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-
-
-                        <div class="modal-body">
-                         
-                          <div class="form-group">
-                            <label for="exampleInputEmail1">Account Name :</label>
-                            <input type="text" class="form-control" id="exampleInputEmail1" value="" name="accountName" aria-describedby="emailHelp" placeholder="Enter Account Name">
-                          </div>
-                         
-                          <div class="form-group">
-                            <label for="exampleInputEmail1">Account Type :</label><br/>
-                            <select class="custom-select" name="userAccountType" required>
-                              <option></option>
-                              <option value="Expence">Expence</option>
-                              <option value="Income">Income</option>
-                              <option value="Transfer">Transfer</option>
-                            </select>
-                          </div>
-                        </div>
-
-
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                          <button type="button" class="btn btn-primary">Save changes</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-
-                  <!-- Jquery -->
+                <div class="form-group">
+                  <label for="nameEdit">Account Name :</label>
+                  <input type="text" class="form-control" id="nameEdit" value="<%= accounts[i].accountName %>" name="accountName" aria-describedby="emailHelp" placeholder="Enter Account Name">
+                </div>
+            
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="location.reload()">Close</button>
+                <button type="submit" class="updateAccount btn btn-primary">Save changes</button>
+              </div>
+            </form>
+            </div>
+          </div>
+        </div>
+        <% } %>
+        <% } %>
+   <!-- Jquery -->
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -156,49 +138,72 @@
 <script>
 
 
-   $(document).ready( function() {
+  //  $(document).ready( function() {
 
 
-    $('.editbtn').on('click' , () => {
+    // $('.editbtn').on('click' , () => {
 
-      $('#exampleModals').modal('show');
+    //  console.log('sdds', $(this).data('id'));
+      //  let id = document.getElementById("myText").value;
 
-      let id = $('.editbtn').val();
-      console.log('This is Id : ' + id);
+      //  let id =  document.getElementsByClassName("editbtn");
+    
+      // let id = $(this).data('id');
+      // console.log(id);
 
-      let accountData = getBlogData(id);
-      console.log(accountData);
+      // let accountData = getBlogData(id);
+      // console.log(accountData.account.accountName);
+      // console.log(accountData.account.userAccountType);
 
-    })
+      // $('#exampleModals').modal('show');
+
+      // $('#nameEdit').val(accountData.account.accountName);
+      // $('#typeEdit').val(accountData.account.userAccountType);
+
+      // $('.updateAccount').on('click' , function() {
+
+      //   let accountName = $('#nameEdit');
+      //   let userAccountType = $('#typeEdit');
+
+      //   let accountUpdated = { accountName : accountName.val() , userAccountType : userAccountType.val() }
+
+      //   $.ajax({
+      //     type : 'PUT',
+      //     url : `/account/updateAccount/${id}`,
+      //     data : accountUpdated,
+      //     success : function() {
+      //        location.href = '/account/getallAccount'
+      //     }
+      //   })
+
+      // })
+
+    // })
 
 
-     const getBlogData = (id) =>{
+  //    const getBlogData = (id) =>{
       
-      let accountName = "";
-      let userAccountType = "";
+  //     let accountName = "";
+  //     let userAccountType = "";
 
-      let data;
+  //     let data;
 
-       $.ajax({
+  //      $.ajax({
         
-        type : 'GET',
-        url: `/account/getallAccountByID/${id}`,
-        async: false,
-        success: function (accounts){
-          console.log(accounts);
-          
-            data = {
-               accountName : accounts.accountName,
-               userAccountType : accounts.userAccountType
-            }
-          
-        }
+  //       type : 'GET',
+  //       url: `/account/getAccountByID/${id}`,
+  //       async: false,
+  //       success: function (account){
+  //          console.log(account)
 
-     })
-      return data;
-   }
+  //           data = account;
+  //       }
 
-   })
+  //    })
+  //     return data;
+  //  }
+
+  //  })
 
 
 

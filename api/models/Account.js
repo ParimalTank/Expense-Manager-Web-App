@@ -12,10 +12,6 @@ module.exports = {
       type: 'string',
       required : true
     },
-    userAccountType : {
-      type : 'string',
-      required : true
-    },
     users : 
       {
         type : 'json',
