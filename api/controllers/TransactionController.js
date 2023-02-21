@@ -18,7 +18,7 @@ module.exports = {
   
     Transaction.create({account_Id : account_Id , transactionuserName : transactionuserName , transactionType: transactionType , transactionAmount : transactionAmount , transactionDescription : transactionDescription}).fetch()
     .then((result) => {
-       
+        req.addFlash('success', 'Transaction Successfully Added');
         res.redirect(`/transaction/getallTransaction?accountId=${account_Id}`);
         
     }).catch(err => {
@@ -75,6 +75,7 @@ module.exports = {
 
    await Transaction.destroy(transactionId).then((result) => {
        
+        req.addFlash('successdelete', 'Deleted Transaction Successfully');
         res.redirect(`/transaction/getallTransaction?accountId=${accountId}`);
 
     }).catch((err) =>{
@@ -96,6 +97,7 @@ module.exports = {
 
    await Transaction.update({ id : transactionId} , {account_Id : account_Id , transactionuserName : transactionuserName , transactionType : transactionType , transactionAmount : transactionAmount , transactionDescription : transactionDescription}).then((result) => {
 
+        req.addFlash('success', 'Transaction Successfully Updated');
         res.redirect(`/transaction/getallTransaction?accountId=${account_Id}`);
 
     }).catch(err => {

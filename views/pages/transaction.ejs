@@ -20,6 +20,10 @@
    
     <!-- font-awesome -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- Jquery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 </head>
 
 <body>
@@ -216,7 +220,23 @@
                             </div>
                         </div>
 
+                        <% flash.get('success').forEach(function (message) { %>
+                            <div style="color:green;" id="message" onload="setTimeout()">
+                              <div class="alert alert-success h6" style="color: black;" role="alert">
+                                <%= message %>
+                              </div>
+                              
+                            </div>
+                          <% }) %>
 
+                        <% flash.get('successdelete').forEach(function (message) { %>
+                            <div style="color:green;" id="message" onload="setTimeout()">
+                              <div class="alert alert-success h6" style="color: black;" role="alert">
+                                <%= message %>
+                              </div>
+                              
+                            </div>
+                          <% }) %>
 
                         <div class="row">
                             <div class="col-md-12 col-lg-12 col-sm-12">
@@ -263,7 +283,7 @@
                                                     <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#<%= transaction[i].id %>" data-id="<%= transaction[i].id %>">Edit</button></td>
                                                     <td>
                                                         <form action="/transaction/deleteTransaction/<%= transaction[i].id %>/<%= req.query.accountId %>" method="post">
-                                                           <button type="submit" class="btn text-white" style="background-color: rgb(233, 105, 105);">Delete</button>
+                                                           <button type="button" class="dltbtn btn text-white" style="background-color: rgb(233, 105, 105);">Delete</button>
                                                         </form>
                                                     </td>
                                                 </tr>
@@ -343,6 +363,27 @@
     <!-- End Wrapper -->
     <!-- ============================================================== -->
     <!-- ============================================================== -->
+
+
+    <script>
+
+        setTimeout(function(){
+          document.getElementById('message').style.display = "none"
+        }, 2000);
+        
+         $(document).ready(function() {
+             $('.dltbtn').on('click' , () => {
+              console.log('on click');
+              const result = confirm('Are you sure to delete this Transaction!!!');
+              if (result == true) {
+                $('.dltbtn').attr("type", "submit");
+              }
+                
+             })
+         })
+        
+    </script>
+
 
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

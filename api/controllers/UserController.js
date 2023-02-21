@@ -124,12 +124,13 @@ module.exports = {
                             expiresIn: '1h'
                         }
                      );
-                     console.log("Login Sucessfully");
                      res.cookie("token" , token , {httpOnly : true }).redirect('/account/getallAccount');
                     } else{
-                        res.status(400).json({
-                            message : 'Auth Failed'
-                        })
+                        req.addFlash('error', 'Invalid Credentials!!!!');
+                        res.redirect('/');
+                        // res.status(400).json({
+                        //     message : 'Auth Failed'
+                        // })
                     }
                 })
          

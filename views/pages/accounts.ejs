@@ -27,23 +27,23 @@
                       </button>
                     </div>
 
-                    <% if (typeof accounts == 'undefined'){ %>
+                    <% if (typeof accounts === 'undefined'){ %>
                       <div></div>
-                      <% }else{ %>
-                    <form action="/account/createaccount/<%= accounts[0].createrId %>" method="post">
-                        <div class="modal-body">
+                    <% } else { %>
+                            <form action="/account/createaccount/<%= accounts[0].createrId %>" method="post">
+                                <div class="modal-body">
 
-                            <div class="form-group">
-                              <label for="exampleInputEmail1">Account Name :</label>
-                              <input type="text" class="form-control" id="exampleInputEmail1" name="accountName" aria-describedby="emailHelp" placeholder="Enter Account Name">
-                            </div>
-                           
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                          <button type="submit" class="btn btn-primary">Save</button>
-                        </div>
-                    </form>
+                                    <div class="form-group">
+                                      <label for="exampleInputEmail1">Account Name :</label>
+                                      <input type="text" class="form-control" id="exampleInputEmail1" name="accountName" aria-describedby="emailHelp" placeholder="Enter Account Name">
+                                    </div>
+                                  
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  <button type="submit" class="btn btn-primary">Save</button>
+                                </div>
+                            </form>
                     <% } %>
                   </div>
                 </div>
@@ -60,6 +60,34 @@
 <% if (typeof accounts == 'undefined'){%>
 <div></div>
 <% }else{ %>
+  <div>
+    <% flash.get('success').forEach(function (message) { %>
+      <div style="color:green;" id="message" onload="setTimeout()">
+        <div class="alert alert-success h6" style="color: black;" role="alert">
+          <%= message %>
+        </div>
+        
+      </div>
+    <% }) %>
+
+    <% flash.get('successdelete').forEach(function (message) { %>
+      <div style="color:green;" id="message" onload="setTimeout()">
+        <div class="alert alert-success h6" style="color: black;" role="alert">
+          <%= message %>
+        </div>
+        
+      </div>
+    <% }) %>
+
+    <% flash.get('error').forEach(function (message) { %>
+      <div style="color:green;" id="message" onload="setTimeout()">
+        <div class="alert alert-success h6" style="color: black;" role="alert">
+          <%= message %>
+        </div>
+      </div>
+   <% }) %>
+  </div>
+ 
 <div class="row ">
   <% for(let i=0 ; i < accounts.length ; i++) { %>
   <div class="col-lg-4 col-md-12">
@@ -77,7 +105,7 @@
 
         <li>
           <form action="/account/deleteAccount/<%= accounts[i].id %>" method="post">
-              <button class="btn text-white" type="submit" style="background-color: rgb(233, 105, 105);">Delete</button>
+              <button class="dltbtn btn text-white" type="button" style="background-color: rgb(233, 105, 105);">Delete</button>
           </form>
         </li>
 
@@ -98,7 +126,7 @@
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Edit Account</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="location.reload()">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -137,78 +165,22 @@
 
 <script>
 
+setTimeout(function(){
+  document.getElementById('message').style.display = "none"
+}, 2000);
 
-  //  $(document).ready( function() {
-
-
-    // $('.editbtn').on('click' , () => {
-
-    //  console.log('sdds', $(this).data('id'));
-      //  let id = document.getElementById("myText").value;
-
-      //  let id =  document.getElementsByClassName("editbtn");
-    
-      // let id = $(this).data('id');
-      // console.log(id);
-
-      // let accountData = getBlogData(id);
-      // console.log(accountData.account.accountName);
-      // console.log(accountData.account.userAccountType);
-
-      // $('#exampleModals').modal('show');
-
-      // $('#nameEdit').val(accountData.account.accountName);
-      // $('#typeEdit').val(accountData.account.userAccountType);
-
-      // $('.updateAccount').on('click' , function() {
-
-      //   let accountName = $('#nameEdit');
-      //   let userAccountType = $('#typeEdit');
-
-      //   let accountUpdated = { accountName : accountName.val() , userAccountType : userAccountType.val() }
-
-      //   $.ajax({
-      //     type : 'PUT',
-      //     url : `/account/updateAccount/${id}`,
-      //     data : accountUpdated,
-      //     success : function() {
-      //        location.href = '/account/getallAccount'
-      //     }
-      //   })
-
-      // })
-
-    // })
-
-
-  //    const getBlogData = (id) =>{
-      
-  //     let accountName = "";
-  //     let userAccountType = "";
-
-  //     let data;
-
-  //      $.ajax({
+ $(document).ready(function() {
+     $('.dltbtn').on('click' , () => {
+      console.log('on click');
+      const result = confirm('Are you sure to delete this Account!');
+      if (result == true) {
+        $('.dltbtn').attr("type", "submit");
+      }
         
-  //       type : 'GET',
-  //       url: `/account/getAccountByID/${id}`,
-  //       async: false,
-  //       success: function (account){
-  //          console.log(account)
-
-  //           data = account;
-  //       }
-
-  //    })
-  //     return data;
-  //  }
-
-  //  })
-
-
-
-    //  const token = '<%= req.cookies.token %>';
-
-    //  console.log("This is Token From Account Page: " +  token);
+     })
+ })
 
 </script>
+
+   <!-- Jquery -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
