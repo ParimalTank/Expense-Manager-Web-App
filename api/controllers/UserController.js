@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
+const jwt_decode = require('jwt-decode');
 
 let otp = Math.random();
 otp = otp * 1000000;
@@ -27,8 +28,7 @@ module.exports = {
                         })
                     } else {
                        
-                     await User.create({userName: req.body.userName , email : req.body.email , password: hash}).fetch().then((user) => {
-
+                     await User.create({userName: req.body.userName , email : req.body.email , password: hash , phoneNumber : '1234567890' , country:'India'}).fetch().then((user) => {
 
                             const token = jwt.sign(
                                 {
@@ -64,9 +64,7 @@ module.exports = {
                                   console.log('Email sent: ' + info.response);
                                 }
                               });
-
                              res.redirect(`/conformation?token=${token}&userid=${user.id}`)
-
                         })
                         .catch((err) => {
                             console.log(err);
@@ -94,8 +92,6 @@ module.exports = {
     
     login : async (req , res) => {
 
-        console.log(req.body);
-
         await User.findOne({email : req.body.email})
         .then(user => {
             if(user.length < 1){
@@ -117,7 +113,7 @@ module.exports = {
                     if(result){
                         const token = jwt.sign({
                             email: user.email,
-                            password:user._id
+                            password:user.id
                         },
                         process.env.JWT_KEY,
                         {
@@ -144,7 +140,6 @@ module.exports = {
 
     },
 
-   
 
     // For Logout 
 
@@ -161,8 +156,6 @@ module.exports = {
     verification : async (req , res) => {
         if(req.body.otp==otp){
 
-            console.log('Verification called');
-
             // console.log();
             const token = req.query.token;
             const userId = req.query.userid;
@@ -170,7 +163,7 @@ module.exports = {
             // Default Acccount Creation
             Account.create({ createrId :  userId, accountName : 'Defult Account' ,userAccountType : 'default' , users : []}).fetch().then(result => {
 
-                res.cookie("token" , token , { httpOnly : true}).redirect('/account/getallAccount');
+                res.cookie("token" , token , { httpOnly : true}).redirect(`/account/getallAccount`);
                 console.log('Default Account Created',result);
              }).catch(err => {
                  res.status(404).json({
@@ -182,6 +175,48 @@ module.exports = {
         else{
             res.view('pages/verification');
         }
+    },
+
+
+
+    getuserProfileData : async (req , res) => {
+        const token = req.cookies.token;
+
+       const verifyUser = jwt.verify(token , process.env.JWT_KEY);
+       const userId = verifyUser.password;
+
+       User.findOne({id : userId}).then(result => {
+
+           res.view('pages/profile' , {result : result});
+       }).catch(err => {
+           res.status(500).json({
+              message : 'error in getUser Profile'
+           })
+       })
+
+    },
+
+    updateuserProfile : async ( req , res) => {
+
+        const token = req.cookies.token;
+
+        const verifyUser = jwt.verify(token , process.env.JWT_KEY);
+        const userId = verifyUser.password;
+
+        const userName  = req.body.userName;
+        const phoneNumber = req.body.phoneNumber;
+        const country = req.body.country;
+
+        User.update({ id : userId} , { userName : userName , phoneNumber : phoneNumber , country : country}).then(result => {
+            req.addFlash('success', 'Profile Successfully Updated');
+            res.redirect('/user/profile');
+        }).catch(err => {
+            res.status(505).json({
+                message : "Error in Update Profiel"
+            })
+        })
     }
+
+
 };
 

@@ -17,6 +17,14 @@ module.exports =  {
    userAccounts : {
     collection: 'account',
     via: 'createrId'
+   },
+   phoneNumber : {
+     type : 'number',
+     required: true
+   },
+   country : {
+    type : 'string',
+    required : true
    }
   },
 };

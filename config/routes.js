@@ -13,6 +13,8 @@ module.exports.routes = {
   '/user/signup' : UserController.signUp,
   '/user/login' :  UserController.login,
   '/user/logout' : UserController.logout,
+  '/user/profile' : UserController.getuserProfileData,
+  '/user/updateprofile' : UserController.updateuserProfile,
 
   // Email Verifiaction
   '/conformation' : { view : 'pages/verification'},

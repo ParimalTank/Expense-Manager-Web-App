@@ -1,4 +1,5 @@
 const nodemailer = require('nodemailer');
+const jwt = require('jsonwebtoken');
 
 module.exports = {
   
@@ -102,12 +103,23 @@ module.exports = {
     },
 
     getallAccount : async (req , res) => {
-       await Account.find({}).then(result => {
+
+       const token = req.cookies.token;
+
+       const verifyUser = jwt.verify(token , process.env.JWT_KEY);
+       const userId = verifyUser.password;
+
+       console.log(userId);
+
+       await Account.find({createrId : userId}).then(result => {
 
             res.view('pages/dashboard' , { accounts : result });
 
         }).catch(err => {
-            res.view('pages/dashboard' , { accounts : result });
+            res.status(505).json({
+                message : "Erron in Get Allaccount"
+            })
+            // res.view('pages/dashboard' , { accounts : result });
         })
     },
 
