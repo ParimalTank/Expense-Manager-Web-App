@@ -24,20 +24,16 @@
 </head>
 
 <body>
-    <!-- ============================================================== -->
-    <!-- Preloader - style you can find in spinners.css -->
-    <!-- ============================================================== -->
+    <!-- Preloader -->
     <div class="preloader">
         <div class="lds-ripple">
             <div class="lds-pos"></div>
             <div class="lds-pos"></div>
         </div>
     </div>
-    <!-- ============================================================== -->
-    <!-- Main wrapper - style you can find in pages.scss -->
-    <!-- ============================================================== -->
-    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
-        data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+
+    <!-- Main wrapper -->
+    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full" data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
         
 
          <!-- Header Bar -->
@@ -47,11 +43,8 @@
      <%- partial('../pages/partials/sidebar.ejs') %>
 
         <!-- Page wrapper  -->
-        <!-- ============================================================== -->
         <div class="page-wrapper">
-            <!-- ============================================================== -->
             <!-- Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
             <div class="page-breadcrumb bg-white">
                 <div class="row align-items-center">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
@@ -67,19 +60,12 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
-            <!-- ============================================================== -->
             <!-- End Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
+
             <!-- Container fluid  -->
-            <!-- ============================================================== -->
             <div class="container-fluid">
-                <!-- ============================================================== -->
                 <!-- Start Page Content -->
-                <!-- ============================================================== -->
                 <!-- Row -->
-
-
                 <% flash.get('success').forEach(function (message) { %>
                     <div style="color:green;" id="message" onload="setTimeout()">
                       <div class="alert alert-success h6" style="color: black;" role="alert">
@@ -93,10 +79,9 @@
                     <!-- Column -->
                     <div class="col-lg-4 col-xlg-3 col-md-12">
                         <div class="white-box">
-                            <div class="user-bg"> <img width="100%" alt="user" src="plugins/images/large/img1.jpg">
+                            <div class="user-bg"> 
                                 <div class="overlay-box">
                                     <div class="user-content">
-                                        <!-- <a href="javascript:void(0)"><img src="plugins/images/users/genu.jpg" class="thumb-lg img-circle" alt="img"></a> -->
                                         <h4 class="text-white mt-2">UserName : <%= result.userName %></h4>
                                         <h5 class="text-white mt-2">Email Id : <%= result.email %></h5>
                                     </div>
@@ -127,11 +112,11 @@
                                         <div class="col-sm-12 border-bottom">
                                             <select class="form-select shadow-none p-0 border-0 form-control-line" >
                                                 <option value="<%= result.country %>"><%= result.country %></option>
-                                                <option>London</option>
-                                                <option>India</option>
-                                                <option>Usa</option>
-                                                <option>Canada</option>
-                                                <option>Thailand</option>
+                                                <option value="London">London</option>
+                                                <option value="India">India</option>
+                                                <option value="Usa">Usa</option>
+                                                <option value="Canada">Canada</option>
+                                                <option value="Thailand">Thailand</option>
                                             </select>
                                         </div>
                                     </div>
@@ -147,45 +132,32 @@
                     <!-- Column -->
                 </div>
                 <!-- Row -->
-                <!-- ============================================================== -->
-                <!-- End PAge Content -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- Right sidebar -->
-                <!-- ============================================================== -->
-                <!-- .right-sidebar -->
-                <!-- ============================================================== -->
-                <!-- End Right sidebar -->
-                <!-- ============================================================== -->
-            </div>
-            <!-- ============================================================== -->
-            <!-- End Container fluid  -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- footer -->
-            <!-- ============================================================== -->
-            <%- partial('../pages/partials/footer.ejs') %>
-            <!-- ============================================================== -->
-            <!-- End footer -->
-            <!-- ============================================================== -->
-        </div>
-        <!-- ============================================================== -->
-        <!-- End Page wrapper  -->
-        <!-- ============================================================== -->
-    </div>
-    <!-- ============================================================== -->
-    <!-- End Wrapper -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- All Jquery -->
-    <!-- ============================================================== -->
 
+                <!-- End PAge Content -->
+
+                <!-- Right sidebar -->
+
+                <!-- .right-sidebar -->
+
+                <!-- End Right sidebar -->
+            </div>
+            <!-- End Container fluid  -->
+            
+            <!-- footer -->
+            <%- partial('../pages/partials/footer.ejs') %>
+            <!-- End footer -->
+        </div>
+        <!-- End Page wrapper  -->
+    </div>
+    <!-- End Wrapper -->
+ 
     <script>
         setTimeout(function(){
                 document.getElementById('message').style.display = "none"
         }, 2000);
     </script>
 
+   <!-- All Jquery -->
     <script src="/plugins/bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
     <script src="/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

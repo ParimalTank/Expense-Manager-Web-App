@@ -1,6 +1,7 @@
 
 module.exports = {
   
+  // Add Transaction
   addTransaction : async (req , res) =>{
 
     const account_Id = req.params.accountId;
@@ -12,12 +13,13 @@ module.exports = {
     const accountDetails = await Account.findOne({id : account_Id });
     const userId = accountDetails.createrId;
 
-    // Find User of Account
+    // Find Username of Account
     const userDetails = await User.findOne({id : userId});
     const transactionuserName = userDetails.userName;
   
     Transaction.create({account_Id : account_Id , transactionuserName : transactionuserName , transactionType: transactionType , transactionAmount : transactionAmount , transactionDescription : transactionDescription}).fetch()
     .then((result) => {
+
         req.addFlash('success', 'Transaction Successfully Added');
         res.redirect(`/transaction/getallTransaction?accountId=${account_Id}`);
         
@@ -30,6 +32,7 @@ module.exports = {
 
   },
 
+  // Get Transactions
   getallTransaction : async (req , res) => {
 
     const account_Id = req.query.accountId;
@@ -49,17 +52,13 @@ module.exports = {
     })
   },
 
-
+  // Get Transaction By Id
   getTransactionById : (req , res) => {
 
     Transaction.find(req.params.id).then((result) => {
 
-
         res.view('transaction' , { transaction : result});
 
-        res.status(200).json({
-            result : result,
-        })
     }).catch(err => {
         res.status(500).json({
             err : err,
@@ -68,6 +67,7 @@ module.exports = {
     })
   },
 
+   // Delete Transaction
   deleteTransaction : async (req , res ) => {
 
     const transactionId = req.params.transactionId;
@@ -85,6 +85,7 @@ module.exports = {
     })
   },
 
+   // Update Transaction 
   updateTransaction : async (req , res) => {
 
     const transactionId = req.params.transactionId;

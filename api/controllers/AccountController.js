@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 
 module.exports = {
   
+    // Add New User
     addUser : async (req , res) => {
 
         const account_id = req.query.accountId;
@@ -12,9 +13,6 @@ module.exports = {
         const user = [];
 
         const findUser = await Account.findOne({_id : account_id})
-
-        console.log("This is Account Details");
-        console.log(findUser);
 
         for(let i = 0; i<findUser.users.length ; i++){
             user.push(findUser.users[i])
@@ -36,6 +34,7 @@ module.exports = {
           // Find User Name
           const userDetails = await User.findOne({ id : findUser.createrId})
           
+          // Invite the New User Using Mail
           const mailOptions = {
             from: 'parimaltank132@gmail.com',
             to:    email,
@@ -50,22 +49,55 @@ module.exports = {
               console.log('Email sent: ' + info.response);
             }
           });
-
-        req.addFlash('success', 'User Successfully Added');
-        res.redirect(`/transaction/getallTransaction?accountId=${account_id}`);
+          // For Validation Using Flash Message
+          req.addFlash('success', 'User Successfully Added');
+          res.redirect(`/transaction/getallTransaction?accountId=${account_id}`);
         
     },
 
+    // Delete Added User
+    deleteUser : async (req ,res) => {
+
+        const accountId = req.params.accountId;
+        const emailIndex = req.params.emailIndex;
+
+       await Account.findOne({id : accountId}).then(async result => {
+
+        for(let i=0 ; i<result.users.length ; i++){
+            if(i == emailIndex){
+                result.users.splice(i , i+1);
+            }
+        }
+            console.log(result);
+
+            await Account.updateOne({ _id : accountId}).set({
+                users : result.users
+            })
+
+            res.redirect(`/transaction/getallTransaction?accountId=${accountId}`);
+        
+        }).catch(err => {
+            res.status(500).json({
+                message : "Error in Delete User"
+            })
+        })
+
+    },
+
+    // Create New Account
     createAccount : async (req , res) => {
 
-        const createrId = req.params.createrId;
+        const token = req.cookies.token;
 
-                                          //creater id // user id
-       await Account.create({createrId : createrId   , accountName : req.body.accountName , users : []} ).fetch().then(result => {
-            
-            // console.log('New Account Created',result);
+        // GET User Id from Token
+        const verifyUser = jwt.verify(token , process.env.JWT_KEY);
+        const userId = verifyUser.password;
+
+       await Account.create({createrId : userId   , accountName : req.body.accountName , users : []} ).fetch().then(result => {
+        
             req.addFlash('success', 'Account Created Successfully');
             res.redirect('/account/getallAccount');
+
          }).catch(err => {
             req.addFlash('error', 'Account Created Failed!!! Please Try again');
             res.redirect('/account/getallAccount');
@@ -73,6 +105,7 @@ module.exports = {
 
     },
 
+    // Delete Account
     deleteAccount : async ( req , res) => {
 
         const id = req.params.id;
@@ -89,6 +122,7 @@ module.exports = {
         })
     },
 
+    // Update account
     updateAccount : async ( req , res) => {
 
        await Account.update({id : req.params.id} , { accountName : req.body.accountName}).then(result => {
@@ -105,24 +139,45 @@ module.exports = {
     getallAccount : async (req , res) => {
 
        const token = req.cookies.token;
-
+       // Find User id From Token
        const verifyUser = jwt.verify(token , process.env.JWT_KEY);
        const userId = verifyUser.password;
 
-       console.log(userId);
+       const emailId = verifyUser.email;
+       
+       // Using This also Finded a Added users Accounts
+       await Account.find({createrId : userId}).then( async result => {
 
-       await Account.find({createrId : userId}).then(result => {
+            const allAccount = await Account.find({});
+            const accounts = [];
 
-            res.view('pages/dashboard' , { accounts : result });
+            for(let i=0 ; i< allAccount.length ; i++){
+
+                for(let j=0 ; j< allAccount[i].users.length ; j++ ){
+                    if(emailId == allAccount[i].users[j]){
+                        accounts.push(allAccount[i].id)
+                    }
+                }
+            }
+
+            const addedUserAccount = [];
+            for(let i=0 ; i<accounts.length ; i++){
+
+               const useraccount = await Account.findOne({ id :accounts[i] })
+               console.log(useraccount);
+               addedUserAccount.push(useraccount)
+            }
+
+            res.view('pages/dashboard' , { addeduserAccount : addedUserAccount , accounts: result});
 
         }).catch(err => {
             res.status(505).json({
                 message : "Erron in Get Allaccount"
             })
-            // res.view('pages/dashboard' , { accounts : result });
         })
     },
 
+    // Get Account By Id
     getAccountByID : async ( req , res) => {
         Account.findOne({id : req.params.id}).exec( (error , account) => {
             if(error){
@@ -134,10 +189,7 @@ module.exports = {
             res.status(200).json({
                 account : account
             })
-            // res.send(account);
-        //  res.view('pages/accounts' , { accounts : account } )
         })
-
     }
 
 };

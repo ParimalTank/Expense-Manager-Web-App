@@ -4,9 +4,9 @@ const UserController = require('../api/controllers/UserController');
 
 module.exports.routes = {
 
+
   '/': { view: 'pages/login'},
   // '/dashboard' : { view : 'pages/accounts'},
-  '/transaction' : { view : 'pages/transaction'},
   
   // User Login , Signup , Log out
   '/signup': {view: 'pages/signup'},
@@ -22,7 +22,7 @@ module.exports.routes = {
 
    // NEW User add
   '/user/adduser' : AccountController.addUser,
-
+  '/user/deleteuser/:accountId/:emailIndex' : AccountController.deleteUser,  
 
 
 // Transaction Section
@@ -49,7 +49,7 @@ module.exports.routes = {
 
 
   // Create Account
-  '/account/createaccount/:createrId' : AccountController.createAccount,
+  '/account/createaccount' : AccountController.createAccount,
   // Delete Account
   '/account/deleteAccount/:id' : AccountController.deleteAccount,
 
@@ -67,9 +67,6 @@ module.exports.routes = {
 
   
   '/profile' : { view : 'pages/profile'},
-  '/basic' : { view : 'pages/basic-table'},
   '/blank' : { view : 'pages/blank'},
-  '/fontawesome' : { view : 'pages/fontawesome'}
-
 
 };

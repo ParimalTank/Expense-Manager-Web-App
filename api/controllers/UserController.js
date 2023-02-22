@@ -1,8 +1,8 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
-const jwt_decode = require('jwt-decode');
 
+// Random 6 digit OTP Generator
 let otp = Math.random();
 otp = otp * 1000000;
 otp = parseInt(otp);
@@ -14,6 +14,7 @@ module.exports = {
 
        await User.find({ email : req.body.email}).then((user) => {
         
+            // Check the User Email in DB, if already regidtered
             if(user.length >= 1){
                 
                 res.status(409).json({
@@ -28,6 +29,7 @@ module.exports = {
                         })
                     } else {
                        
+                     // User Profile Creation
                      await User.create({userName: req.body.userName , email : req.body.email , password: hash , phoneNumber : '1234567890' , country:'India'}).fetch().then((user) => {
 
                             const token = jwt.sign(
@@ -42,6 +44,7 @@ module.exports = {
                                 }
                             )
 
+                            // Send Email Of OTP to User For Verification
                             const transporter = nodemailer.createTransport({
                                 service: 'gmail',
                                 auth: {
@@ -101,7 +104,6 @@ module.exports = {
             } else{
 
                 // chech entered userName exist into a database or not.
-
                  bcrypt.compare(req.body.password , user.password , (err , result) =>{
 
                     if(err){
@@ -120,13 +122,11 @@ module.exports = {
                             expiresIn: '1h'
                         }
                      );
+
                      res.cookie("token" , token , {httpOnly : true }).redirect('/account/getallAccount');
                     } else{
                         req.addFlash('error', 'Invalid Credentials!!!!');
                         res.redirect('/');
-                        // res.status(400).json({
-                        //     message : 'Auth Failed'
-                        // })
                     }
                 })
          
@@ -142,7 +142,6 @@ module.exports = {
 
 
     // For Logout 
-
     logout : async (req , res) => {
         try{
             res.clearCookie('token').redirect('/');
@@ -153,18 +152,18 @@ module.exports = {
         }
     },
 
+    // For User Verification Based ON OTP
     verification : async (req , res) => {
+
         if(req.body.otp==otp){
 
-            // console.log();
             const token = req.query.token;
             const userId = req.query.userid;
 
-            // Default Acccount Creation
+            // After Varification Default Acccount Creation
             Account.create({ createrId :  userId, accountName : 'Defult Account' ,userAccountType : 'default' , users : []}).fetch().then(result => {
 
                 res.cookie("token" , token , { httpOnly : true}).redirect(`/account/getallAccount`);
-                console.log('Default Account Created',result);
              }).catch(err => {
                  res.status(404).json({
                    err : err,
@@ -178,7 +177,7 @@ module.exports = {
     },
 
 
-
+    // Get User Profile Data
     getuserProfileData : async (req , res) => {
         const token = req.cookies.token;
 
@@ -196,6 +195,7 @@ module.exports = {
 
     },
 
+    // Update User Profile
     updateuserProfile : async ( req , res) => {
 
         const token = req.cookies.token;
@@ -216,7 +216,6 @@ module.exports = {
             })
         })
     }
-
 
 };
 

@@ -10,6 +10,13 @@
 
 module.exports.policies = {
 
+
+  // 'admin/*': 'isAuthenticated',
+
+  // '*': 'isAuthenticated',
+  // 'user/login': true,
+  // '/' : true
+
   /***************************************************************************
   *                                                                          *
   * Default policy for all controllers and actions, unless overridden.       *
@@ -17,7 +24,23 @@ module.exports.policies = {
   *                                                                          *
   ***************************************************************************/
 
-  // '*': true,
+
+  '*': true,
+  'UserController': {
+    login: true,
+    signUp: true,
+  },
+  'AccountController': {
+    '*': 'isAuthenticated',
+  }
+
+  //  '*': true,
+  //  UserController : {
+  //    '*' : 'isAuthenticated',
+  //    'login' : true,
+  //    'signUp' : true
+  //  }
+
 
   // '*': 'isAuth',
   // 'api/controllers/UserController': true,
@@ -30,5 +53,15 @@ module.exports.policies = {
     // },
     // transaction : {
     //     '*': 'isAuth',
+    // }
+
+    // '*': 'isAuthenticated',
+    // UsersController:{
+    //   '*': true,
+    // }
+
+    // '*': 'isAuthenticated',
+    // 'auth': {
+    //   '*': true
     // }
 };
