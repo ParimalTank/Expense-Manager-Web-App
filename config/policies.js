@@ -25,43 +25,16 @@ module.exports.policies = {
   ***************************************************************************/
 
 
-  '*': true,
   'UserController': {
+    '*': 'isAuthenticated',
     login: true,
     signUp: true,
   },
   'AccountController': {
-    '*': 'isAuthenticated',
+    '*': 'isAuthenticated'
+  },
+  'TransactionController' : {
+    '*': 'isAuthenticated'
   }
 
-  //  '*': true,
-  //  UserController : {
-  //    '*' : 'isAuthenticated',
-  //    'login' : true,
-  //    'signUp' : true
-  //  }
-
-
-  // '*': 'isAuth',
-  // 'api/controllers/UserController': true,
-
-    // user: {
-    //     '*': true
-    // },
-    // account: {
-    //     '*': 'isAuth',
-    // },
-    // transaction : {
-    //     '*': 'isAuth',
-    // }
-
-    // '*': 'isAuthenticated',
-    // UsersController:{
-    //   '*': true,
-    // }
-
-    // '*': 'isAuthenticated',
-    // 'auth': {
-    //   '*': true
-    // }
 };

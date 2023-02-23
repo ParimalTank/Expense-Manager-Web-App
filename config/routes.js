@@ -6,7 +6,6 @@ module.exports.routes = {
 
 
   '/': { view: 'pages/login'},
-  // '/dashboard' : { view : 'pages/accounts'},
   
   // User Login , Signup , Log out
   '/signup': {view: 'pages/signup'},
@@ -61,12 +60,5 @@ module.exports.routes = {
 
   // Get account by Id
   '/account/getAccountByID/:id' : AccountController.getAccountByID,
-
-
-
-
-  
-  '/profile' : { view : 'pages/profile'},
-  '/blank' : { view : 'pages/blank'},
 
 };
