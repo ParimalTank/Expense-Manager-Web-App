@@ -152,6 +152,9 @@ module.exports = {
         'https://parimal-expense-manager.onrender.com',
       ]
     },
+    sockets :{
+       onlyAllowOrigins : ['https://parimal-expense-manager.onrender.com']
+    }
 
   },
 
