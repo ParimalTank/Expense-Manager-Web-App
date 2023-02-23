@@ -181,6 +181,7 @@ module.exports = {
                     })
                 })
             }else{
+                console.log('Hello From Account Controller');
                 res.redirect('/');
             }
     },

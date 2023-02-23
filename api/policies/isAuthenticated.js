@@ -9,13 +9,13 @@ module.exports = async function (req, res, proceed) {
     // > custom hook (`api/hooks/custom/index.js`).
     // if (req.me) {
     try{
+      console.log('Hello From Auth');
       const token = req.cookies.token;
       if(!token){
           return res.redirect('/login')
       }
         console.log(token);
         const decoded = jwt.verify(token, 'secret');
-        console.log("decoded",decoded);
         req.userData = decoded;
         proceed();
       } catch(error){
