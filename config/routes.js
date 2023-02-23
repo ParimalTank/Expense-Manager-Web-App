@@ -1,7 +1,6 @@
 
 module.exports.routes = {
 
-
   '/': { view: 'pages/login'},
   
   // User Login , Signup , Log out
@@ -40,12 +39,11 @@ module.exports.routes = {
   'POST /transaction/updateTransaction/:transactionId/:accountId' : 'TransactionController.updateTransaction',
 
 
-
   // Account Section
-
-
+ 
   // Create Account
   'POST /account/createaccount' : 'AccountController.createAccount',
+
   // Delete Account
   'POST /account/deleteAccount/:id' : 'AccountController.deleteAccount',
 

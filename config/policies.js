@@ -14,6 +14,7 @@ module.exports.policies = {
     '*': 'isAuthenticated',
     login: true,
     signUp: true,
+    verification : true
   },
   AccountController: {
     '*': 'isAuthenticated'

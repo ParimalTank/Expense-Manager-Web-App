@@ -8,6 +8,10 @@ var rc;
 try {
   sails = require('sails');
   rc = require('sails/accessible/rc');
+
+  require('dotenv').config()
+
+
 } catch (err) {
   console.error('Encountered an error when attempting to require(\'sails\'):');
   console.error(err.stack);
