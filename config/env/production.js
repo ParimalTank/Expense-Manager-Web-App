@@ -152,7 +152,7 @@ module.exports = {
         'https://parimal-expense-manager.onrender.com',
       ]
     }
-    
+
   },
 
 
@@ -169,6 +169,8 @@ module.exports = {
   ***************************************************************************/
   session: {
 
+    name : 'sails.sid',
+    name : 'token',
     /***************************************************************************
     *                                                                          *
     * Production session store configuration.                                  *
@@ -236,7 +238,7 @@ module.exports = {
     *                                                                          *
     ***************************************************************************/
     cookie: {
-      // secure: true,
+      secure: true,
       maxAge: 24 * 60 * 60 * 1000,  // 24 hours
     },
 
