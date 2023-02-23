@@ -1,6 +1,3 @@
-const AccountController = require('../api/controllers/AccountController');
-const TransactionController = require('../api/controllers/TransactionController');
-const UserController = require('../api/controllers/UserController');
 
 module.exports.routes = {
 
@@ -9,38 +6,38 @@ module.exports.routes = {
   
   // User Login , Signup , Log out
   '/signup': {view: 'pages/signup'},
-  '/user/signup' : UserController.signUp,
-  '/user/login' :  UserController.login,
-  '/user/logout' : UserController.logout,
-  '/user/profile' : UserController.getuserProfileData,
-  '/user/updateprofile' : UserController.updateuserProfile,
+  'POST /user/signup' : 'UserController.signUp',
+  'POST /user/login' : 'UserController.login',
+  'GET /user/logout' : 'UserController.logout',
+  'GET /user/profile' : 'UserController.getuserProfileData',
+  'POST /user/updateprofile' : 'UserController.updateuserProfile',
 
   // Email Verifiaction
   '/conformation' : { view : 'pages/verification'},
-  '/user/verification' : UserController.verification,
+  'POST /user/verification' : 'UserController.verification',
 
    // NEW User add
-  '/user/adduser' : AccountController.addUser,
-  '/user/deleteuser/:accountId/:emailIndex' : AccountController.deleteUser,  
+  'POST /user/adduser' : 'AccountController.addUser',
+  'POST /user/deleteuser/:accountId/:emailIndex' : 'AccountController.deleteUser',  
 
 
 // Transaction Section
   
   // ADD Transaction
-  '/transaction/addtransaction/:accountId':  TransactionController.addTransaction,
+  'POST /transaction/addtransaction/:accountId':  'TransactionController.addTransaction',
 
   // Get All Transaction Details
-  '/transaction/getallTransaction' : TransactionController.getallTransaction,
+  'GET /transaction/getallTransaction' : 'TransactionController.getallTransaction',
 
   // Delete Transaction
-  '/transaction/deleteTransaction/:transactionId/:accountId' : TransactionController.deleteTransaction,
+  'POST /transaction/deleteTransaction/:transactionId/:accountId' : 'TransactionController.deleteTransaction',
 
   // Get Transaction Details By ID
-  '/transaction/getTransaction/:id' : TransactionController.getTransactionById,
+  'GET /transaction/getTransaction/:id' : 'TransactionController.getTransactionById',
 
 
   // Update the Transaction By Id
-  '/transaction/updateTransaction/:transactionId/:accountId' : TransactionController.updateTransaction,
+  'POST /transaction/updateTransaction/:transactionId/:accountId' : 'TransactionController.updateTransaction',
 
 
 
@@ -48,17 +45,17 @@ module.exports.routes = {
 
 
   // Create Account
-  '/account/createaccount' : AccountController.createAccount,
+  'POST /account/createaccount' : 'AccountController.createAccount',
   // Delete Account
-  '/account/deleteAccount/:id' : AccountController.deleteAccount,
+  'POST /account/deleteAccount/:id' : 'AccountController.deleteAccount',
 
   // Update Account
-  '/account/updateAccount/:id' : AccountController.updateAccount,
+  'POST /account/updateAccount/:id' : 'AccountController.updateAccount',
 
   // Get all Account
-  '/account/getallAccount' : AccountController.getallAccount,
+  'GET /account/getallAccount' : 'AccountController.getallAccount',
 
   // Get account by Id
-  '/account/getAccountByID/:id' : AccountController.getAccountByID,
+  'GET /account/getAccountByID/:id' : 'AccountController.getAccountByID',
 
 };
