@@ -50,7 +50,8 @@ module.exports = {
             }
           });
           // For Validation Using Flash Message
-          req.addFlash('success', 'User Successfully Added');
+         
+          req.addFlash('successAddUser', 'User Successfully Added');
           res.redirect(`/transaction/getallTransaction?accountId=${account_id}`);
         
     },
@@ -97,14 +98,14 @@ module.exports = {
             await Account.create({createrId : userId   , accountName : req.body.accountName , users : []} ).fetch().then(result => {
                 
                     req.addFlash('success', 'Account Created Successfully');
-                    res.redirect('/account/getallAccount');
+                    res.redirect('/account/getallAccount?message=success'); 
 
                 }).catch(err => {
                     req.addFlash('error', 'Account Created Failed!!! Please Try again');
                     res.redirect('/account/getallAccount');
                 })
         }else{
-            res.redirect('/');
+            res.redirect('404');
         }
 
     },
@@ -181,8 +182,7 @@ module.exports = {
                     })
                 })
             }else{
-                console.log('Hello From Account Controller');
-                res.redirect('/');
+                res.redirect('404');
             }
     },
 
