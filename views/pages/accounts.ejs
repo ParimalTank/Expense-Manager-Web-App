@@ -66,7 +66,24 @@
     </div>
 <% }) %>
 
-   <!-- <div id="sucess-message"></div> -->
+    <% flash.get('successdelete').forEach(function (message) { %>
+      <div style="color:green;" id="message" onload="setTimeout()">
+        <div class="alert alert-success h6" style="color: black;" role="alert">
+          <%= message %>
+        </div>
+        
+      </div>
+    <% }) %>
+
+    <% flash.get('error').forEach(function (message) { %>
+      <div style="color:green;" id="message" onload="setTimeout()">
+        <div class="alert alert-success h6" style="color: black;" role="alert">
+          <%= message %>
+        </div>
+      </div>
+   <% }) %>
+  </div>
+ 
 <div class="row ">
   <% for(let i=0 ; i < accounts.length ; i++) { %>
   <div class="col-lg-4 col-md-12">
@@ -99,7 +116,7 @@
 
 <% if (typeof addeduserAccount == 'undefined' ||  addeduserAccount.length == 0){%>
   <div>
-      <h3>Shared Accounts Not Found</h3>
+      <h3>Shared Group Accounts Not Found</h3>
   </div>
   <% }else{ %>
       <h3>Shared Group Accounts</h3>
@@ -180,6 +197,10 @@ setTimeout(function(){
       const result = confirm('Are you sure to delete this Account!');
       if (result == true) {
         $('.dltbtn').attr("type", "submit");
+        // document.getElementById('sucess-message').innerHTML = ` 
+				// 		    <div class="alert alert-success" role="alert" onload='setTimeout()'>
+				// 				  Account Sucessfully Deleted
+				// 			</div>`
       }
         
      })

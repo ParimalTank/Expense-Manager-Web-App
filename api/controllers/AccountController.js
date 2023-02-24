@@ -51,7 +51,7 @@ module.exports = {
           });
           // For Validation Using Flash Message
          
-       
+          req.addFlash('successAddUser', 'User Successfully Added');
           res.redirect(`/transaction/getallTransaction?accountId=${account_id}`);
         
     },
