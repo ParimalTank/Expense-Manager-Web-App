@@ -59,34 +59,14 @@
     <h3>Accounts Not Found</h3>
 </div>
 <% }else{ %>
-  <div>
-    <% flash.get('success').forEach(function (message) { %>
-      <div style="color:green;" id="message" onload="setTimeout()">
-        <div class="alert alert-success h6" style="color: black;" role="alert">
-          <%= message %>
-        </div>
-        
-      </div>
-    <% }) %>
 
-    <% flash.get('successdelete').forEach(function (message) { %>
-      <div style="color:green;" id="message" onload="setTimeout()">
-        <div class="alert alert-success h6" style="color: black;" role="alert">
-          <%= message %>
-        </div>
-        
-      </div>
-    <% }) %>
+  <% flash.get('success').forEach(function (message) { %>
+    <div style="color:green;">
+      <%= message %>
+    </div>
+<% }) %>
 
-    <% flash.get('error').forEach(function (message) { %>
-      <div style="color:green;" id="message" onload="setTimeout()">
-        <div class="alert alert-success h6" style="color: black;" role="alert">
-          <%= message %>
-        </div>
-      </div>
-   <% }) %>
-  </div>
- 
+   <!-- <div id="sucess-message"></div> -->
 <div class="row ">
   <% for(let i=0 ; i < accounts.length ; i++) { %>
   <div class="col-lg-4 col-md-12">
@@ -119,7 +99,7 @@
 
 <% if (typeof addeduserAccount == 'undefined' ||  addeduserAccount.length == 0){%>
   <div>
-      <h3>Accounts Not Found</h3>
+      <h3>Shared Accounts Not Found</h3>
   </div>
   <% }else{ %>
       <h3>Shared Group Accounts</h3>
@@ -192,6 +172,7 @@
 setTimeout(function(){
   document.getElementById('message').style.display = "none"
 }, 2000);
+
 
  $(document).ready(function() {
      $('.dltbtn').on('click' , () => {

@@ -20,7 +20,7 @@ module.exports.http = {
   *                                                                           *
   ****************************************************************************/
 
-  trustProxy : false,
+  // trustProxy : false,
 
   middleware: {
 

@@ -178,9 +178,8 @@
                                     <div class="modal-body">
                                         
                                         <div class="form-group">
-                                            <label for="exampleFormControlSelect1">Transaction Type</label>
-                                            <select name="transactionType" class="form-control border-2" id="exampleFormControlSelect1">
-                                            <option selected>Select Account Type</option>
+                                            <label for="exampleFormControlSelect1">Select Transaction Type</label>
+                                            <select name="transactionType" class="form-control border-2" id="exampleFormControlSelect1" aria-placeholder="Select Account Type">
                                               <option value="Expense">Expense</option>
                                               <option value="Income">Income</option>
                                               <option value="Transfer">Transfer</option>
@@ -194,7 +193,7 @@
 
                                           <div class="form-group">
                                             <label for="transactionDescription">Transaction Description</label>
-                                            <input type="text" class="form-control" name="transactionDescription" id="transactionDescription" placeholder="Enter Transaction Description">
+                                            <input type="text" class="form-control" name="transactionDescription" id="transactionDescription" placeholder="Enter Transaction Description" required>
                                           </div>
                                     </div>
 
@@ -208,23 +207,7 @@
                             </div>
                         </div>
 
-                        <% flash.get('success').forEach(function (message) { %>
-                            <div style="color:green;" id="message" onload="setTimeout()">
-                              <div class="alert alert-success h6" style="color: black;" role="alert">
-                                <%= message %>
-                              </div>
-                              
-                            </div>
-                          <% }) %>
-
-                        <% flash.get('successdelete').forEach(function (message) { %>
-                            <div style="color:green;" id="message" onload="setTimeout()">
-                              <div class="alert alert-success h6" style="color: black;" role="alert">
-                                <%= message %>
-                              </div>
-                              
-                            </div>
-                          <% }) %>
+                        
 
                         <div class="row">
                             <div class="col-md-12 col-lg-12 col-sm-12">
@@ -314,7 +297,7 @@
 
                                       <div class="form-group">
                                         <label for="transactionDescription">Transaction Description</label>
-                                        <input type="text" class="form-control" name="transactionDescription" value="<%= transaction[i].transactionDescription %>" id="transactionDescription" placeholder="Enter Transaction Description">
+                                        <input type="text" class="form-control" name="transactionDescription" value="<%= transaction[i].transactionDescription %>" id="transactionDescription" placeholder="Enter Transaction Description" required>
                                       </div>
                                   </div>
                             

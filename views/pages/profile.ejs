@@ -98,25 +98,25 @@
                                     <div class="form-group mb-4">
                                         <label class="col-md-12 p-0">Username</label>
                                         <div class="col-md-12 border-bottom p-0">
-                                            <input type="text" placeholder="Johnathan Doe" class="form-control p-0 border-0" name="userName" id="username" value="<%= result.userName %>"> </div>
+                                            <input type="text" placeholder="Johnathan Doe" class="form-control p-0 border-0" name="userName" id="username" value="<%= result.userName %>" required> </div>
                                     </div>
                                     <div class="form-group mb-4">
                                         <label class="col-md-12 p-0">Phone No</label>
                                         <div class="col-md-12 border-bottom p-0">
-                                            <input type="text" placeholder="123 456 7890" name="phoneNumber" class="form-control p-0 border-0" value="<%= result.phoneNumber %>">
+                                            <input type="text" placeholder="123 456 7890" name="phoneNumber" class="form-control p-0 border-0" value="<%= result.phoneNumber %>" required>
                                         </div>
                                     </div>
                                     <div class="form-group mb-4">
                                         <label class="col-sm-12">Select Country</label>
 
                                         <div class="col-sm-12 border-bottom">
-                                            <select class="form-select shadow-none p-0 border-0 form-control-line" >
+                                            <select class="form-select shadow-none p-0 border-0 form-control-line" name="country">
                                                 <option value="<%= result.country %>"><%= result.country %></option>
                                                 <option value="London">London</option>
                                                 <option value="India">India</option>
                                                 <option value="Usa">Usa</option>
                                                 <option value="Canada">Canada</option>
-                                                <option value="Thailand">Thailand</option>
+                                                <option value="Thailand">Germany</option>
                                             </select>
                                         </div>
                                     </div>
